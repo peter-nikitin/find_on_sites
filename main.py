@@ -7,35 +7,44 @@ from selenium.webdriver.chrome.options import Options
 
 # --------------
 
-entry_file_name = "entry_file.csv"  # название ВХОДНОГО файла с расширением
+entry_file_name = "entry.csv"  # название ВХОДНОГО файла с расширением
 result_file_name = "result.csv"     # название ИТОГОГО файла с расширением
 
-index_of_site_in_entry_file = 1     # индекс колонки, в которой находится адрес сайта. Начинается с 0
+index_of_site_in_entry_file = 0     # индекс колонки, в которой находится адрес сайта. Начинается с 0
 
 # массив строк для поиска через запятую
+# search_strings_array = [
+#     "itunes",
+#     "apple.com",
+#     "play.google.com",
+#     "appmetrica",
+#     "adjust",
+#     "onelink",
+#     "appsflyer"
+# ]
 search_strings_array = [
-    "itunes",
-    "apple.com",
-    "play.google.com",
-    "appmetrica",
-    "adjust",
-    "onelink",
-    "appsflyer"
+    "бонус",
+    "дисконт",
+    "лояльности",
+    "клуб",
 ]
 
+where_should_find_string = "." 
+# "@href" - если в ссылке
+# "." - (просто точка) если в тексте
 
 # --------------
 
-def create_xpath(search_strings_array):
-    my_string = f"contains(@href, '{search_strings_array[0]}') "
+def create_xpath(search_strings_array, tag):
+    my_string = f"contains({tag}, '{search_strings_array[0][1:]}') "
     for s in search_strings_array[1:]:
-        my_string = my_string + "or contains(@href, '" + s + "') "
+        my_string = my_string + "or contains(" + tag + " , '" + s[1:] + "') "
 
     return f"//a[{my_string}]"
 
 
-def try_find_element_on_site(site_adress, search_string):
-    url = f"https://{site_adress}"
+def try_find_element_on_site(site_address, search_string):
+    url = site_address
 
     try:
         driver.get(url)
@@ -60,7 +69,7 @@ options = Options()
 options.add_argument("window-size=1400,800")
 driver = webdriver.Chrome(options=options)
 
-xpath_string = create_xpath(search_strings_array)
+xpath_string = create_xpath(search_strings_array, where_should_find_string)
 suffix = '%(index)d/%(max)d [%(elapsed_td)s / %(eta)d / %(eta_td)s]'
 
 bar = IncrementalBar('Countdown', max=count_total_rows(entry_file_name), suffix=suffix)
