@@ -7,31 +7,30 @@ from selenium.webdriver.chrome.options import Options
 
 # --------------
 
-entry_file_name = "entry.csv"  # название ВХОДНОГО файла с расширением
-result_file_name = "result.csv"     # название ИТОГОГО файла с расширением
+# название ВХОДНОГО файла с расширением
+entry_file_name = "entry.csv"  
 
-index_of_site_in_entry_file = 0     # индекс колонки, в которой находится адрес сайта. Начинается с 0
+# название ИТОГОГО файла с расширением
+result_file_name = "result.csv"     
+
+# индекс колонки, в которой находится адрес сайта. Начинается с 0
+index_of_site_in_entry_file = 0     
 
 # массив строк для поиска через запятую
-# search_strings_array = [
-#     "itunes",
-#     "apple.com",
-#     "play.google.com",
-#     "appmetrica",
-#     "adjust",
-#     "onelink",
-#     "appsflyer"
-# ]
 search_strings_array = [
-    "бонус",
-    "дисконт",
-    "лояльности",
-    "клуб",
+    "itunes",
+    "apple.com",
+    "play.google.com",
+    "appmetrica",
+    "adjust",
+    "onelink",
+    "appsflyer"
 ]
 
+# тег, в котором нужно искать значения
 where_should_find_string = "." 
-# "@href" - если в ссылке
-# "." - (просто точка) если в тексте
+# "@href" - поиск в адресе ссылки
+# "." - (просто точка) поиск в тексте
 
 # --------------
 
